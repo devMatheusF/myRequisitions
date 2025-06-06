@@ -50,5 +50,6 @@ Para rodar localmente:
 
 Exemplo visual no projeto:
 
-![Uploading image.png…]()
+![image](https://github.com/user-attachments/assets/661b4aa6-8832-4abf-8be4-f8803e835f9c)
+
 
