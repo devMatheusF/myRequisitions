@@ -46,3 +46,9 @@ MyRequisitions/
 
 Para rodar localmente:
 `npm install + npm run dev`
+
+
+Exemplo visual no projeto:
+
+![Uploading image.png…]()
+
