@@ -1,54 +1,48 @@
-# React + TypeScript + Vite
+Este projeto contempla a ideia de estrutura e compartilhamento de dados entre as stores do projeto. 
+O exemplo usado foi a seleção de uma região, planta e a atribuição de um usuário ao acessar a página.
+Esses dados foram compartilhados via hook e salvos em ambos os contextos de domínio, tanto no set do domínio de region, quanto no purchase requisition.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Os próximos passos desta estrutura é lidar com os subdominions com seus próprios subdominios por processo e tipos de item.
 
-Currently, two official plugins are available:
+Basicamente seguimos toda recomendação da documentação do redux para seguir com este processo, abortando a ideia dada anteriormente de multiplas stores com a premissa de dificultar e muito ter uma única fonte da verdade e tornar a lógica de controle de estado exponencialmente mais complexa a cada nova iteração.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Este repositório contém:
 
-## Expanding the ESLint configuration
+```
+MyRequisitions/
+├── src/
+  ├── MyRequisitions/
+  ├──── domains/
+  │   └── PurchaseRequisition/              # CORE DOMAIN
+  │       ├── components/
+  │       ├── store/
+  │           │── store.ts  #Arquivo que contém o slice de PurchaseRequisition
+  │           │── purchaseRequisitionSelectors.ts  #Arquivo que contém exemplo dos seletores centralizados
+  │           │── selectors/  #Diretório que contém os selectors de PurchaseRequisition separados
+  │               │── regionSelector.ts  
+  │               │── prStatsSelector.ts  
+  ├──── subdomains/
+  │   └── leasing/
+  │   └── spotbuy
+  ├── Region/
+  ├──── domains/
+  │   └── SelectedPlant/              # CORE DOMAIN
+  │       ├── components/
+  │       ├── store/
+  │           │── store.ts  #Arquivo que contém o slice de SelectedPlant
+  │           #A estrutura de PR poderá se repetir aqui com relação a separação de selectors
+  ├──── subdomains/
+  │   └── leasing/
+  │   └── spotbuy
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+  ├── app/
+    ├── components/ #contém os componentes que serao implementados por todos os domínios
+    ├── layout/ 
+    ├── pages/ #contém as rotas que implementam os domínios
+    ├── lib/ #contém as funcionalidades reutilizáveis em toda aplicação
+    ├── store/ #contém a store global + os slices globais que não são domínios, como usuário
+    
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+Para rodar localmente:
+`npm install + npm run dev`
