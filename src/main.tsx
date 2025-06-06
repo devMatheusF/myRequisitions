@@ -2,7 +2,7 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { store } from './app/store/store.ts';
 import { Provider } from 'react-redux';
-import DefaultLayout from '../app/layout/DefaultLayout.tsx'
+import DefaultLayout from './app/layout/DefaultLayout.tsx'
 import { createHashRouter, RouterProvider } from 'react-router-dom';
 import PurchaseRequisitionPage from './app/pages/PurchaseRequisition';
 import './index.css'
