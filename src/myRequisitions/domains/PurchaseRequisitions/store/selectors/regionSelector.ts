@@ -1,5 +1,5 @@
 import { createSelector } from '@reduxjs/toolkit';
-import type { RootState } from '../../../../../../app/store/store';
+import type { RootState } from '../../../../../app/store/store';
 
 
 //Aqui vamos pegar o state do domínio

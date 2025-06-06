@@ -3,7 +3,7 @@ import { type RootState } from '../../../app/store/store';
 import { useRegionSync } from '../../lib/sharedData/useRegionSync';
 import { useCurrentUser } from '../../lib/sharedData/useCurrentUser';
 import { useEffect } from 'react';
-import { setLoading, setPriceData, setRequisitions } from '../../../src/myRequisitions/domains/PurchaseRequisitions/store/slice';
+import { setLoading, setPriceData, setRequisitions } from '../../../myRequisitions/domains/PurchaseRequisitions/store/slice';
 
 export default function PurchaseRequisitionPage() {
   const dispatch = useDispatch();

@@ -1,5 +1,5 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import type { RootState } from '../../../../../app/store/store';
+import type { RootState } from '../../../../app/store/store';
 
 type Region = 'Americas' | 'Europe' | 'Asia';
 type Plant = string;
@@ -74,8 +74,8 @@ export const purchaseRequisitionSlice = createSlice({
 });
 
 // Podemos criar também seletores mais simples no mesmo arquivo do slice, vai caber a nós o entendimento do padrao
-// export const selectPRLoading = (state: RootState) => state.purchaseRequisition.loading;
-// export const selectCurrentRegion = (state: RootState) => state.purchaseRequisition.currentRegion;
+export const selectPRLoading = (state: RootState) => state.purchaseRequisition.loading;
+export const selectCurrentRegion = (state: RootState) => state.purchaseRequisition.currentRegion;
 
 export const { 
   syncRegionData, 

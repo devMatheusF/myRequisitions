@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
-import regionReducer from '../../src/region/domains/selectedPlant/store/regionSlice';
-import purchaseRequisitionReducer from '../../src/myRequisitions/domains/PurchaseRequisitions/store/slice';
+import regionReducer from '../../region/domains/selectedPlant/store/store';
+import purchaseRequisitionReducer from '../../myRequisitions/domains/PurchaseRequisitions/store/slice';
 import userReducer from './currentUserSlice';
 
 export const store = configureStore({

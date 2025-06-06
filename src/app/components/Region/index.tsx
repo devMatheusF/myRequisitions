@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { type RootState } from '../../../app/store/store';
-import { setRegion, setPlant } from '../../../src/region/domains/selectedPlant/store/regionSlice';
+import { setRegion, setPlant } from '../../../src/region/domains/selectedPlant/store/store';
 import { useNavigate } from 'react-router-dom';
 
 const plantsByRegion: Record<string, string[]> = {
@@ -24,13 +24,13 @@ export default function RegionSelector() {
   };
 
   return (
-    <div className="p-4 border rounded bg-white shadow">
-      <h2 className="font-bold mb-2">Selecione uma região:</h2>
-      <div className="flex gap-2 mb-4">
+    <div className="p-4 rounded shadow gap-4 flex flex-col">
+      <h2 className="font-bold mb-2 text-white text-4xl">Selecione uma região:</h2>
+      <div className="flex gap-2 mb-4 w-full justify-center">
         {['Americas', 'Europe', 'Asia'].map(region => (
           <button
             key={region}
-            className={`px-4 py-2 rounded ${selectedRegion === region ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
+            className={`px-4 py-2 rounded ${selectedRegion === region ? 'bg-green-600' : 'bg-green-400'}`}
             onClick={() => handleRegionClick(region)}
           >
             {region}
@@ -51,9 +51,8 @@ export default function RegionSelector() {
           </select>
         </>
       )}
-      <p>{selectedPlant} planta</p>
       <button
-        className={`px-4 py-2 rounded`}
+        className={`px-4 py-2 rounded bg-green-500 cursor-pointer`}
         disabled={!selectedRegion || !selectedPlant}
         onClick={() => navigate("/pr")}
       >

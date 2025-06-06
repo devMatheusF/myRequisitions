@@ -1,5 +1,5 @@
 import { createSelector } from '@reduxjs/toolkit';
-import { type RootState } from '../../../../../app/store/store';
+import { type RootState } from '../../../../app/store/store';
 
 //Aqui vamos pegar o state do domínio
 const selectPurchaseRequisitionState = (state: RootState) => state.purchaseRequisition;
@@ -18,8 +18,10 @@ export const selectPRStats = createSelector(
   [selectPurchaseRequisitionState],
   (pr) => ({
     totalRequisitions: pr.requisitions.fields.length,
-    totalPriceItems: Object.keys(pr.priceData).length,
+    totalPriceItems: Object.keys(pr.priceData).toString(),
     hasError: !!pr.error,
     isLoading: pr.loading
   })
 );
+
+
