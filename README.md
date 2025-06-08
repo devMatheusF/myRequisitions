@@ -44,7 +44,7 @@ MyRequisitions/
     
 ```
 
-Segue um fluxograma de toda aplicação:
+Fluxograma de toda aplicação:
 https://excalidraw.com/#json=avo7Vcner5FzHoBeT9qpp,2C12dWp7TOEG0HtwOiHTCg
 
 Para rodar localmente:
@@ -59,4 +59,7 @@ Exemplo visual no projeto:
 Comparação sobre as duas soluçōes de estado e organização das stores e reducers implementadas:
 ![image](https://github.com/user-attachments/assets/8cc7bce4-8738-4c28-8fe2-99c5b62d1128)
 
+
+Documentação oficial da POC:
+https://www.notion.so/Documenta-o-oficial-prova-de-conceito-IProcure-20c648bb9a268090bc96c506427403b5?showMoveTo=true
 
