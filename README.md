@@ -44,6 +44,9 @@ MyRequisitions/
     
 ```
 
+Segue um fluxograma de toda aplicação:
+https://excalidraw.com/#json=avo7Vcner5FzHoBeT9qpp,2C12dWp7TOEG0HtwOiHTCg
+
 Para rodar localmente:
 `npm install + npm run dev`
 
