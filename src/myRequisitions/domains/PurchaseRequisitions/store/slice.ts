@@ -3,32 +3,22 @@ import type { RootState } from '../../../../app/store/store';
 
 type Region = 'Americas' | 'Europe' | 'Asia';
 type Plant = string;
+type ItemType = 'material' | 'catalog' | 'limit';
 
 interface PurchaseRequisitionState {
   currentRegion: Region | null;
   currentPlant: Plant | null;
-  priceData: Record<string, number>;
-  requisitions: {
-    fields: []
-  }; 
+  itemType: ItemType | null;
   loading: boolean;
   error: string | null;
-  
-  regionalData: Record<string, {
-    suppliers: string[];
-    defaultCurrency: string;
-    approvalMatrix: any[];
-  }>;
 }
 
 const initialState: PurchaseRequisitionState = {
   currentRegion: null,
   currentPlant: null,
-  priceData: {},
-  requisitions: {fields: []},
+  itemType: null,
   loading: false,
   error: null,
-  regionalData: {},
 };
 
 export const purchaseRequisitionSlice = createSlice({
@@ -39,22 +29,10 @@ export const purchaseRequisitionSlice = createSlice({
       const { region, plant } = action.payload;
       state.currentRegion = region;
       state.currentPlant = plant;
-      
-  
-      if (state.currentRegion !== region) {
-        state.priceData = {};
-        state.requisitions = {fields: []};
-        state.error = null;
-      }
     },
     
-    // Actions específicas do domínio PR
-    setPriceData(state, action: PayloadAction<Record<string, number>>) {
-      state.priceData = action.payload;
-    },
-    
-    setRequisitions(state, action: PayloadAction<[]>) {
-      state.requisitions.fields = action.payload;
+    setItemType(state, action: PayloadAction<ItemType | null>) {
+      state.itemType = action.payload;
     },
     
     setLoading(state, action: PayloadAction<boolean>) {
@@ -64,26 +42,21 @@ export const purchaseRequisitionSlice = createSlice({
     setError(state, action: PayloadAction<string | null>) {
       state.error = action.payload;
     },
-    
-    // Action para dados regionais específicos
-    setRegionalData(state, action: PayloadAction<{ key: string; data: any }>) {
-      const { key, data } = action.payload;
-      state.regionalData[key] = data;
-    },
   },
 });
 
-// Podemos criar também seletores mais simples no mesmo arquivo do slice, vai caber a nós o entendimento do padrao
-export const selectPRLoading = (state: RootState) => state.purchaseRequisition.loading;
+// Seletores
 export const selectCurrentRegion = (state: RootState) => state.purchaseRequisition.currentRegion;
+export const selectCurrentPlant = (state: RootState) => state.purchaseRequisition.currentPlant;
+export const selectItemType = (state: RootState) => state.purchaseRequisition.itemType;
+export const selectPRLoading = (state: RootState) => state.purchaseRequisition.loading;
+export const selectPRError = (state: RootState) => state.purchaseRequisition.error;
 
 export const { 
   syncRegionData, 
-  setPriceData, 
-  setRequisitions, 
+  setItemType,
   setLoading, 
-  setError, 
-  setRegionalData 
+  setError
 } = purchaseRequisitionSlice.actions;
 
 export default purchaseRequisitionSlice.reducer;

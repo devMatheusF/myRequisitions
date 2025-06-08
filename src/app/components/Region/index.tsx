@@ -1,7 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { type RootState } from '../../../app/store/store';
-import { setRegion, setPlant } from '../../../src/region/domains/selectedPlant/store/store';
+import { setRegion, setPlant } from '../../../../src/region/domains/selectedPlant/store/store';
 import { useNavigate } from 'react-router-dom';
+import { useRegionSync } from '../../lib/sharedData/useRegionSync';
 
 const plantsByRegion: Record<string, string[]> = {
   Americas: ['Plant A1', 'Plant A2'],
@@ -14,6 +15,8 @@ export default function RegionSelector() {
   const { selectedRegion, selectedPlant } = useSelector((state: RootState) => state.region);
 
   const navigate = useNavigate();
+  const syncRegion = useRegionSync();
+
 
   const handleRegionClick = (region: string) => {
     dispatch(setRegion(region as any));    
@@ -22,6 +25,11 @@ export default function RegionSelector() {
   const handlePlantChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     dispatch(setPlant(e.target.value));
   };
+
+  const handleConfirmRegion = () => {
+    syncRegion();
+    navigate("/pr");
+  }
 
   return (
     <div className="p-4 rounded shadow gap-4 flex flex-col">
@@ -54,7 +62,7 @@ export default function RegionSelector() {
       <button
         className={`px-4 py-2 rounded bg-green-500 cursor-pointer`}
         disabled={!selectedRegion || !selectedPlant}
-        onClick={() => navigate("/pr")}
+        onClick={() => handleConfirmRegion()}
       >
         Confirmar
       </button>
