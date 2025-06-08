@@ -56,3 +56,7 @@ Exemplo visual no projeto:
 ![image](https://github.com/user-attachments/assets/661b4aa6-8832-4abf-8be4-f8803e835f9c)
 
 
+Comparação sobre as duas soluçōes de estado e organização das stores e reducers implementadas:
+![image](https://github.com/user-attachments/assets/8cc7bce4-8738-4c28-8fe2-99c5b62d1128)
+
+
