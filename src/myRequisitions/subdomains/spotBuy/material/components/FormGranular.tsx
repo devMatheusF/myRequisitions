@@ -260,7 +260,7 @@ export function FormGranular() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-6 bg-white">
+    <div className="w-full mx-auto p-6 bg-white">
       <h1 className="text-2xl font-bold text-gray-900 mb-6">Formulário de Material Granular</h1>
       
       <div className="space-y-8">

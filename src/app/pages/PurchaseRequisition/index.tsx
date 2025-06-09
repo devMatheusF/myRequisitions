@@ -19,7 +19,7 @@ export default function PurchaseRequisitionPage() {
       </div>
 
       {/* Container para os formulários com largura 100% e gap de 24px */}
-      <div className="w-full flex flex-col gap-6">
+      <div className="w-full flex flex-row gap-6 justify-between">
         <Form />
         <FormGranular />
       </div>
