@@ -1,7 +1,7 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from '../../../../app/store/store';
 
-interface FieldConfig {
+interface FieldsConfig {
   name: string;
   disable: boolean;
   type: string;
@@ -9,76 +9,102 @@ interface FieldConfig {
   value?: string;
 }
 
-interface ItemType {
-  section : {
-    key: string;
-    fields: {
-      name: FieldConfig;
-      description: FieldConfig;
-      price: FieldConfig;
-      plant: FieldConfig;
-    }
-  }
+//Objeto contendo todos os campos do formulário possíveis
+export interface AllFieldsForm {
+  name?: FieldsConfig;
+  description?: FieldsConfig;
+  price?: FieldsConfig;
+  plant?: FieldsConfig;
 }
 
 interface SpotbuyState {
-  items: ItemType[]
+  fields: AllFieldsForm;
+  isSubmitting: boolean;
+  submitError: string | null;
 }
 
 const initialState: SpotbuyState = {
-  items: [
-    {
-      section: {
-        key: 'first',
-        fields: {
-          name: {
-            name: 'name',
-            disable: false,
-            type: 'text',
-            readonly: false,
-          },
-          description: {
-            name: 'description',
-            disable: false,
-            type: 'text',
-            readonly: false,
-          },
-          price: {
-            name: 'price',
-            disable: false,
-            type: 'number',
-            readonly: false,
-          },
-          plant: {
-            name: 'plant',
-            disable: true,
-            type: 'text',
-            readonly: true,
-          },
-        }
-      }
+  fields: {
+    name: {
+      name: 'name',
+      disable: false,
+      type: 'text',
+      readonly: false,
     },
-  ],
+    description: {
+      name: 'description',
+      disable: false,
+      type: 'text',
+      readonly: false,
+    },
+    price: {
+      name: 'price',
+      disable: false,
+      type: 'number',
+      readonly: false,
+    },
+    plant: {
+      name: 'plant',
+      disable: true,
+      type: 'text',
+      readonly: true,
+    },
+  },
+  isSubmitting: false,
+  submitError: null,
 };
 
-export const spotbuySlice = createSlice({
-  name: 'spotbuy',
+export const spotbuyGranularSlice = createSlice({
+  name: 'spotbuyGranular',
   initialState,
   reducers: {
-    addNewItemForSpotBuy(state, action: PayloadAction<ItemType[]>) {
-      if (state.items.length === 0) {
-        state.items = action.payload;
-      } else {
-        state.items = [...state.items, ...action.payload];
-      }
-    }
-  }    
+    // Action para submeter dados para purchaseRequisition
+    submitToPurchaseRequisition(state, action: PayloadAction<any>) {
+      state.isSubmitting = true;
+      state.submitError = null;
+    },
+    
+    // Action para quando o submit é bem-sucedido
+    submitToPurchaseRequisitionSuccess(state) {
+      state.isSubmitting = false;
+      state.submitError = null;
+    },
+    
+    // Action para quando o submit falha
+    submitToPurchaseRequisitionFailure(state, action: PayloadAction<string>) {
+      state.isSubmitting = false;
+      state.submitError = action.payload;
+    },
+    
+    // Action para limpar erro
+    clearSubmitError(state) {
+      state.submitError = null;
+    },
+  }
 });
 
-//dispatch(addNewItemForSpotBuy([novoItem]))
+// Poderia também ser um thunk para submeter para purchaseRequisition
+export const submitToPurchaseRequisitionThunk = (payload: any) => async (dispatch: any) => {
+  try {
+    //Simulacao para salvar na PR
+    dispatch(submitToPurchaseRequisition(payload));
+    // dispatch(purchaseRequisitionActions.createRequisition(payload));
+    dispatch(submitToPurchaseRequisitionSuccess());
+  } catch (error) {
+    dispatch(submitToPurchaseRequisitionFailure('Erro ao submeter'));
+  }
+};
 
 export const { 
-  addNewItemForSpotBuy
-} = spotbuySlice.actions;
+  submitToPurchaseRequisition,
+  submitToPurchaseRequisitionSuccess,
+  submitToPurchaseRequisitionFailure,
+  clearSubmitError
+} = spotbuyGranularSlice.actions;
 
-export default spotbuySlice.reducer;
+// Seletores
+export const selectSpotbuyFields = (state: RootState) => state.spotbuyGranular.fields;
+export const selectIsSubmitting = (state: RootState) => state.spotbuyGranular.isSubmitting;
+export const selectSubmitError = (state: RootState) => state.spotbuyGranular.submitError;
+
+export default spotbuyGranularSlice.reducer;

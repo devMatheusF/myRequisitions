@@ -92,10 +92,22 @@ export function Form() {
   
   //Funcao que posteriormente daria pra usar pra atualizar a store com um dispatch
   const handleInputChange = (fieldName: string, value: string | number) => {
-    setFormValues(prev => ({
-      ...prev,
-      [fieldName]: value
-    }));
+    setFormValues(prev => {
+      const newValues = {
+        ...prev,
+        [fieldName]: value
+      };
+      
+      // Se value === 'caneta', atualiza o campo planta para '001'
+      if (value === 'caneta') {
+        //Isso é pra mostrar que um campo tem efeito colateral no outro. 
+        //Aqui podemos abstrair em um custom hook que consulta API externa e salva valores de preço e etc baseado
+        //Na planta e região
+        newValues.plant = '002';
+      }
+      
+      return newValues;
+    });
     
     // dispatch({ type: 'UPDATE_FIELD', payload: { fieldName, value } });
   };
@@ -110,6 +122,7 @@ export function Form() {
   const renderField = (fieldKey: string, fieldConfig: any) => {
     const { name, disable, type, readonly } = fieldConfig;
     const value = formValues[name] || '';
+    console.log(value);
 
     return (
       <div key={fieldKey} className="mb-4">
@@ -126,9 +139,13 @@ export function Form() {
           value={value}
           disabled={disable}
           readOnly={readonly}
-          onChange={(e) => handleInputChange(name, type === 'number' ? Number(e.target.value) : e.target.value)}
+          onChange={(e) => {
+            if (!disable && !readonly) {
+              handleInputChange(name, type === 'number' ? Number(e.target.value) : e.target.value);
+            }
+          }}
           className={`
-            w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500
+            w-full px-3 text-black py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500
             ${disable ? 'bg-gray-100 cursor-not-allowed' : ''}
             ${readonly ? 'bg-gray-50' : ''}
           `}
