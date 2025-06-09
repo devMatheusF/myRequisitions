@@ -63,3 +63,6 @@ Comparação sobre as duas soluçōes de estado e organização das stores e red
 Documentação oficial da POC:
 https://www.notion.so/Documenta-o-oficial-prova-de-conceito-IProcure-20c648bb9a268090bc96c506427403b5?showMoveTo=true
 
+Implementação de ambos os formulários funcionais:
+<img width="1360" alt="image" src="https://github.com/user-attachments/assets/cde16077-e524-4890-9427-74446999df66" />
+
