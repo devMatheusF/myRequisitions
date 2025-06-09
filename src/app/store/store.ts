@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import regionReducer from '../../region/domains/selectedPlant/store/store';
 import purchaseRequisitionReducer from '../../myRequisitions/domains/PurchaseRequisitions/store/slice';
 import spotbuyReducer from '../../myRequisitions/subdomains/spotBuy/store/sliceCentralized';
-import materialReducer from '../../myRequisitions/subdomains/spotBuy/material/store/slice';
+import materialReducer from '../../myRequisitions/subdomains/spotBuy/material/store/sliceCentralized';
 import userReducer from './currentUserSlice';
 
 export const store = configureStore({

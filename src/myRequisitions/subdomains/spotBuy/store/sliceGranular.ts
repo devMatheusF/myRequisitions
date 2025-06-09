@@ -10,12 +10,15 @@ interface FieldConfig {
 }
 
 interface ItemType {
-  fields: {
-    name: FieldConfig;
-    description: FieldConfig;
-    price: FieldConfig;
-    plant: FieldConfig;
-  };
+  section : {
+    key: string;
+    fields: {
+      name: FieldConfig;
+      description: FieldConfig;
+      price: FieldConfig;
+      plant: FieldConfig;
+    }
+  }
 }
 
 interface SpotbuyState {
@@ -25,32 +28,35 @@ interface SpotbuyState {
 const initialState: SpotbuyState = {
   items: [
     {
-      fields: {
-        name: {
-          name: 'name',
-          disable: false,
-          type: 'text',
-          readonly: false,
-        },
-        description: {
-          name: 'description',
-          disable: false,
-          type: 'text',
-          readonly: false,
-        },
-        price: {
-          name: 'price',
-          disable: false,
-          type: 'number',
-          readonly: false,
-        },
-        plant: {
-          name: 'plant',
-          disable: true,
-          type: 'text',
-          readonly: true,
-        },
-      },
+      section: {
+        key: 'first',
+        fields: {
+          name: {
+            name: 'name',
+            disable: false,
+            type: 'text',
+            readonly: false,
+          },
+          description: {
+            name: 'description',
+            disable: false,
+            type: 'text',
+            readonly: false,
+          },
+          price: {
+            name: 'price',
+            disable: false,
+            type: 'number',
+            readonly: false,
+          },
+          plant: {
+            name: 'plant',
+            disable: true,
+            type: 'text',
+            readonly: true,
+          },
+        }
+      }
     },
   ],
 };
@@ -59,15 +65,20 @@ export const spotbuySlice = createSlice({
   name: 'spotbuy',
   initialState,
   reducers: {
-    addNewItemForSpotBuy(state) {
-      state.items = {...state.items}
+    addNewItemForSpotBuy(state, action: PayloadAction<ItemType[]>) {
+      if (state.items.length === 0) {
+        state.items = action.payload;
+      } else {
+        state.items = [...state.items, ...action.payload];
+      }
     }
   }    
 });
 
+//dispatch(addNewItemForSpotBuy([novoItem]))
 
 export const { 
-  
+  addNewItemForSpotBuy
 } = spotbuySlice.actions;
 
 export default spotbuySlice.reducer;
