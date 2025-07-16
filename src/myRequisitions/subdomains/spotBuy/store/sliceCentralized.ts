@@ -150,7 +150,7 @@ const initialState: SpotbuyState = {
           key: 'second',
           fields: {
             price: {
-              name: 'price',
+              name: 'price2',
               disable: false,
               type: 'number',
               readonly: false,
